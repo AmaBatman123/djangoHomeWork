@@ -2,11 +2,22 @@
 
 {% block content %}
     <div class="card" style="width: 18rem;">
+    {% if post.image %}
+        <img class="card-img-top" src="{{post.image.url}}" alt="Card image cap"></img>
+      {%  else %}
+          <img src="/static/placeholder.png" alt="Card image cap"></img>
+      {% endif %}
       <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.content }}</p>
         <p class="card-text" style="color: crimson">Created at: {{ post.created_at }}</p>
         <p class="card-text">Last updated: {{ post.updated_at }}</p>
+          <p class="card-text" style="color: blue">{{ post.category.title }}</p>
+          <p class="card-text" style="color: blueviolet">
+              {% for tag in post.tags.all %}
+                #{{ tag.title }}
+              {% endfor %}
+          </p>
       </div>
     </div>
 {% endblock %}
