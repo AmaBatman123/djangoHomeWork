@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from posts.forms import PostForm
 from posts.models import Post
@@ -31,9 +31,6 @@ def post_create_view(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
-            return HttpResponse(f'POST был создан, id: {post.id}')
-        elif not form.is_valid():
-            return render(request, "posts/posts_create.html", context={"form": form})
-        else:
-            return render(request, "posts/posts_create.html", context={"form": form})
+            form.save()
+            return redirect("/posts/")
+        return render(request, "posts/posts_create.html", context={"form": form})

@@ -17,15 +17,15 @@ class PostForm(forms.ModelForm):
         return title
 
     def clean_content(self):
-        content = self.cleaned_data['title']
+        content = self.cleaned_data['content']
         if len(content) < 5:
             raise forms.ValidationError("Content must contain more than 5 characters")
-        return title
+        return content
 
     def clean(self):
         data = super().clean()
         title = data.get("title")
         content = data.get("content")
-        if title and content and title.strip() == content.strip():
+        if title == content:
             raise forms.ValidationError("Title and content must be different")
         return data
