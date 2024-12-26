@@ -17,3 +17,8 @@ class RegisterForm(forms.ModelForm):
         if (password and password_confirm) and (password != password_confirm):
             raise forms.ValidationError("Passwords must match")
         return cleaned_data
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField(widget=forms.PasswordInput)
+
